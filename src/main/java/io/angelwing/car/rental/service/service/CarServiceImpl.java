@@ -3,6 +3,7 @@ package io.angelwing.car.rental.service.service;
 import io.angelwing.car.rental.service.model.Car;
 import io.angelwing.car.rental.service.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository) {
+    public CarServiceImpl(@Qualifier("carRepositoryImpl") CarRepository carRepository) {
         this.carRepository = carRepository;
     }
 
@@ -27,5 +28,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public Optional<Car> findById(UUID id) {
         return carRepository.findById(id);
+    }
+
+    @Override
+    public Car save(Car car) {
+        return carRepository.save(car);
     }
 }

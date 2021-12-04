@@ -11,4 +11,6 @@ public interface CarRepository {
     Collection<Car> findAll();
 
     Optional<Car> findById(UUID id);
+
+    Car save(Car car);
 }
