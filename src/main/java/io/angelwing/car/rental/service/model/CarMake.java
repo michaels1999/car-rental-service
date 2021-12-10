@@ -47,16 +47,6 @@ public class CarMake {
         // NOOP
     }
 
-    public CarMake(UUID id, CarBrand carBrand, String name, Integer year, Double engineVolume, BodyType bodyType, CombustionType combustionType) {
-        this.id = id;
-        this.carBrand = carBrand;
-        this.name = name;
-        this.year = year;
-        this.engineVolume = engineVolume;
-        this.bodyType = bodyType;
-        this.combustionType = combustionType;
-    }
-
     public UUID getId() {
         return id;
     }
@@ -84,4 +74,79 @@ public class CarMake {
     public CombustionType getCombustionType() {
         return combustionType;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private UUID id;
+
+        private CarBrand carBrand;
+
+        private String name;
+
+        private Integer year;
+
+        private Double engineVolume;
+
+        private BodyType bodyType;
+
+        private CombustionType combustionType;
+
+        private Builder() {
+            // NOOP
+        }
+
+        public Builder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withCarBrand(CarBrand carBrand) {
+            this.carBrand = carBrand;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withYear(Integer year) {
+            this.year = year;
+            return this;
+        }
+
+        public Builder withEngineVolume(Double engineVolume) {
+            this.engineVolume = engineVolume;
+            return this;
+        }
+
+        public Builder withBodyType(BodyType bodyType) {
+            this.bodyType = bodyType;
+            return this;
+        }
+
+        public Builder withCombustionType(CombustionType combustionType) {
+            this.combustionType = combustionType;
+            return this;
+        }
+
+        public CarMake build() {
+            CarMake carMake = new CarMake();
+            carMake.id = id;
+            carMake.carBrand = carBrand;
+            carMake.name = name;
+            carMake.year = year;
+            carMake.engineVolume = engineVolume;
+            carMake.bodyType = bodyType;
+            carMake.combustionType = combustionType;
+            return carMake;
+        }
+
+    }
+
+
 }

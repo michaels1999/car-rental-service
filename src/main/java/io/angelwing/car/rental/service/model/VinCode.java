@@ -27,12 +27,6 @@ public class VinCode {
         // NOOP
     }
 
-    public VinCode(String id, Car car, Boolean available) {
-        this.id = id;
-        this.car = car;
-        this.available = available;
-    }
-
     public String getId() {
         return id;
     }
@@ -43,5 +37,42 @@ public class VinCode {
 
     public Boolean getAvailable() {
         return available;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String id;
+        private Car car;
+        private Boolean available;
+
+        private Builder() {
+            // NOOP
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withCar(Car car) {
+            this.car = car;
+            return this;
+        }
+
+        public Builder withAvailable(Boolean available) {
+            this.available = available;
+            return this;
+        }
+
+        public VinCode build() {
+            VinCode vinCode = new VinCode();
+            vinCode.id = id;
+            vinCode.car = car;
+            vinCode.available = available;
+            return vinCode;
+        }
     }
 }

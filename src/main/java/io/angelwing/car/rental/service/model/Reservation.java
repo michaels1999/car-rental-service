@@ -37,17 +37,6 @@ public class Reservation {
         // NOOP
     }
 
-    public Reservation(UUID id, VinCode vinCode, LocalDateTime startDate, LocalDateTime endDate) {
-        this.id = id;
-        this.vinCode = vinCode;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public void setId(final UUID id) {
-        this.id = id;
-    }
-
     public UUID getId() {
         return id;
     }
@@ -62,5 +51,53 @@ public class Reservation {
 
     public LocalDateTime getEndDate() {
         return endDate;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private UUID id;
+
+        private VinCode vinCode;
+
+        private LocalDateTime startDate;
+
+        private LocalDateTime endDate;
+
+        private Builder() {
+            // NOOP
+        }
+
+        public Builder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withVinCode(VinCode vinCode) {
+            this.vinCode = vinCode;
+            return this;
+        }
+
+        public Builder withStartDate(LocalDateTime startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder withEndDate(LocalDateTime endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        public Reservation build() {
+            Reservation reservation = new Reservation();
+            reservation.id = id;
+            reservation.vinCode = vinCode;
+            reservation.startDate = startDate;
+            reservation.endDate = endDate;
+            return reservation;
+        }
     }
 }
