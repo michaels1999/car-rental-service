@@ -1,6 +1,5 @@
 package io.angelwing.car.rental.service;
 
-import com.mysql.cj.jdbc.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +32,7 @@ public class JpaConfiguration {
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(Driver.class.getName());
+        dataSource.setDriverClassName(environment.getProperty("hibernate.driverClassName"));
         dataSource.setUsername(environment.getProperty("spring.datasource.username"));
         dataSource.setPassword(environment.getProperty("spring.datasource.password"));
         dataSource.setUrl(environment.getProperty("spring.datasource.url"));
@@ -65,8 +64,8 @@ public class JpaConfiguration {
 
     private Properties additionalProperties() {
         final Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
 
         return properties;
     }

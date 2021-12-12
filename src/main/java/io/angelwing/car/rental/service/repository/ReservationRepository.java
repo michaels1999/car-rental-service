@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public interface ReservationRepository {
 
-
     Collection<Reservation> findAll();
 
     Optional<Reservation> findById(UUID id);
 
     Reservation save(Reservation reservation);
+
 }

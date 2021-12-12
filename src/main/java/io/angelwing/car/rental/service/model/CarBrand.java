@@ -25,16 +25,43 @@ public class CarBrand {
         // NOOP
     }
 
-    public CarBrand(UUID id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public UUID getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private UUID id;
+
+        private String name;
+
+        private Builder() {
+            // NOOP
+        }
+
+        public Builder withId(final UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public CarBrand build() {
+            CarBrand carBrand = new CarBrand();
+            carBrand.id = id;
+            carBrand.name = name;
+            return carBrand;
+        }
     }
 }

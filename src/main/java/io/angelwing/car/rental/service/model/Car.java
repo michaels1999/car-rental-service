@@ -47,22 +47,18 @@ public class Car {
         // NOOP
     }
 
-    public Car(UUID id, CarMake carMake, Color color, Double regularPrice, Double youngPrice, Double elderPrice, Double inexperiencedPrice) {
-        this.id = id;
-        this.carMake = carMake;
-        this.color = color;
-        this.regularPrice = regularPrice;
-        this.youngPrice = youngPrice;
-        this.elderPrice = elderPrice;
-        this.inexperiencedPrice = inexperiencedPrice;
+    private Car(final Builder builder) {
+        this.id = builder.id;
+        this.carMake = builder.carMake;
+        this.color = builder.color;
+        this.regularPrice = builder.regularPrice;
+        this.youngPrice = builder.youngPrice;
+        this.elderPrice = builder.elderPrice;
+        this.inexperiencedPrice = builder.inexperiencedPrice;
     }
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public CarMake getCarMake() {
@@ -87,5 +83,68 @@ public class Car {
 
     public Double getInexperiencedPrice() {
         return inexperiencedPrice;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private UUID id;
+
+        private CarMake carMake;
+
+        private Color color;
+
+        private Double regularPrice;
+
+        private Double youngPrice;
+
+        private Double elderPrice;
+
+        private Double inexperiencedPrice;
+
+        private Builder() {
+            // NOOP
+        }
+
+        public Builder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withCarMake(CarMake carMake) {
+            this.carMake = carMake;
+            return this;
+        }
+
+        public Builder withColor(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder withRegularPrice(Double regularPrice) {
+            this.regularPrice = regularPrice;
+            return this;
+        }
+
+        public Builder withYoungPrice(Double youngPrice) {
+            this.youngPrice = youngPrice;
+            return this;
+        }
+
+        public Builder withElderPrice(Double youngPrice) {
+            this.youngPrice = youngPrice;
+            return this;
+        }
+
+        public Builder withInexperiencedPrice(Double inexperiencedPrice) {
+            this.inexperiencedPrice = inexperiencedPrice;
+            return this;
+        }
+
+        public Car build() {
+            return new Car(this);
+        }
     }
 }
