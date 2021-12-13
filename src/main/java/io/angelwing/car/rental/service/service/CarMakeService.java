@@ -14,5 +14,4 @@ public interface CarMakeService {
 
     CarMake save(CarMake carMake);
 
-    Collection<CarMake> findByYear(Integer year);
 }

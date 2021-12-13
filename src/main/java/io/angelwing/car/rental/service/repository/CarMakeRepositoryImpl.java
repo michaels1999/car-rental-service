@@ -35,10 +35,4 @@ public class CarMakeRepositoryImpl implements CarMakeRepository {
         return carMake;
     }
 
-    @Override
-    public Collection<CarMake> findByYear(final Integer year) {
-        return entityManager.createQuery("from CarMake where year = :year", CarMake.class)
-                .setParameter("year", year)
-                .getResultList();
-    }
 }

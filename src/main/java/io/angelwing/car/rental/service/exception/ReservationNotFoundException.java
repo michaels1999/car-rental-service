@@ -1,10 +1,8 @@
 package io.angelwing.car.rental.service.exception;
 
-import java.util.UUID;
+public class ReservationNotFoundException extends CarRentalServiceException {
 
-public class ReservationNotFoundException extends RuntimeException {
-
-    public ReservationNotFoundException(UUID id) {
-        super("Reservation with id=" + id + " not found!");
+    public ReservationNotFoundException() {
+        super(ErrorCode.CRS004);
     }
 }

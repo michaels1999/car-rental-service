@@ -30,7 +30,7 @@ public class VinCodeController {
     @GetMapping("vin-codes/{id}")
     public VinCode findById(@PathVariable final String id) {
         return vinCodeService.findById(id)
-                .orElseThrow(() -> new VinCodeNotFoundException(id));
+                .orElseThrow(VinCodeNotFoundException::new);
     }
 
     @PostMapping("vin-codes")

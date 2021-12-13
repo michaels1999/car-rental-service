@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.UUID;
 
 @Entity
@@ -24,21 +29,31 @@ public class CarMake {
     @Column(name = "car_make_id")
     private UUID id;
 
+    @NotNull(message = "Car brand is missing")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_brand_id")
     private CarBrand carBrand;
 
+    @NotBlank(message = "Car make name should not be empty")
     private String name;
 
+    @NotNull(message = "Year is missing")
+    @Min(value = 1900, message = "Specified year is less than 1900")
+    @Max(value = 2021, message = "Specified year is greater than 2021")
     private Integer year;
 
+    @NotNull(message = "Engine volume is missing")
+    @Positive(message = "Engine volume could not be less than zero")
+    @Max(value = 10, message = "Engine volume is greater than 10")
     @Column(name = "engine_volume")
     private Double engineVolume;
 
+    @NotNull(message = "Body type is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "body_type")
     private BodyType bodyType;
 
+    @NotNull(message = "Combustion type is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "combustion_type")
     private CombustionType combustionType;

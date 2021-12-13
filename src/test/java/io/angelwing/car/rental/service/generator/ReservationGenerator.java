@@ -32,8 +32,8 @@ public final class ReservationGenerator {
         return Reservation.builder()
                 .withId(id)
                 .withVinCode(vinCode)
-                .withStartDate(LocalDateTime.of(2021, 12, 8, 18, 29, 41))
-                .withEndDate(LocalDateTime.of(2021, 12, 10, 18, 29, 41))
+                .withStartDate(LocalDateTime.now().minusDays(1))
+                .withEndDate(LocalDateTime.now().plusDays(1))
                 .build();
     }
 
