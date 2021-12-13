@@ -31,7 +31,7 @@ public class ReservationController {
     @GetMapping("reservations/{id}")
     public Reservation findById(@PathVariable final UUID id) {
         return reservationService.findById(id)
-                .orElseThrow(() -> new ReservationNotFoundException(id));
+                .orElseThrow(ReservationNotFoundException::new);
     }
 
     @PostMapping("reservations")

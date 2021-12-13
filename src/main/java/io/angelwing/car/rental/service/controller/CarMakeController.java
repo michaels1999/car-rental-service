@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -25,18 +24,14 @@ public class CarMakeController {
     }
 
     @GetMapping("car-makes")
-    public Collection<CarMake> findAll(@RequestParam(value = "year", required = false) final Integer year) {
-        if (year != null) {
-            return carMakeService.findByYear(year);
-        }
-
+    public Collection<CarMake> findAll() {
         return carMakeService.findAll();
     }
 
     @GetMapping("car-makes/{id}")
     public CarMake findById(@PathVariable final UUID id) {
         return carMakeService.findById(id)
-                .orElseThrow(() -> new CarMakeNotFoundException(id));
+                .orElseThrow(CarMakeNotFoundException::new);
     }
 
     @PostMapping("car-makes")

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +20,7 @@ public class CarBrand {
     @Column(name = "car_brand_id")
     private UUID id;
 
+    @NotBlank(message = "Car brand name should not be empty")
     private String name;
 
     public CarBrand() {

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.UUID;
 
 @Entity
@@ -24,22 +26,34 @@ public class Car {
     @Column(name = "car_id")
     private UUID id;
 
+    @NotNull(message = "Car make is missing")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_make_id")
     private CarMake carMake;
 
+    @NotNull(message = "Color is missing")
     @Enumerated(EnumType.STRING)
     private Color color;
 
+    @NotNull(message = "Regular price is missing")
+    @Positive(message = "Regular price should be greater than zero")
     @Column(name = "regular_price")
     private Double regularPrice;
 
+
+    @NotNull(message = "Young price is missing")
+    @Positive(message = "Young price should be greater than zero")
     @Column(name = "young_price")
     private Double youngPrice;
 
+
+    @NotNull(message = "Elder price is missing")
+    @Positive(message = "Elder price should be greater than zero")
     @Column(name = "elder_price")
     private Double elderPrice;
 
+    @NotNull(message = "Inexperienced price is missing")
+    @Positive(message = "Inexperienced price should be greater than zero")
     @Column(name = "inexperienced_price")
     private Double inexperiencedPrice;
 
@@ -133,8 +147,8 @@ public class Car {
             return this;
         }
 
-        public Builder withElderPrice(Double youngPrice) {
-            this.youngPrice = youngPrice;
+        public Builder withElderPrice(Double elderPrice) {
+            this.elderPrice = elderPrice;
             return this;
         }
 

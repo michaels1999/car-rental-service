@@ -34,8 +34,4 @@ public class CarMakeServiceImpl implements CarMakeService {
         return carMakeRepository.save(carMake);
     }
 
-    @Override
-    public Collection<CarMake> findByYear(final Integer year) {
-        return carMakeRepository.findByYear(year);
-    }
 }

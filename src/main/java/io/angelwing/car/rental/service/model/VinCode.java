@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "vin_code")
@@ -16,10 +17,12 @@ public class VinCode {
     @Column(name = "vin_code_id")
     private String id;
 
+    @NotNull(message = "Car is missing")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private Car car;
 
+    @NotNull(message = "Available is missing")
     @Column(columnDefinition = "TINYINT")
     private Boolean available;
 

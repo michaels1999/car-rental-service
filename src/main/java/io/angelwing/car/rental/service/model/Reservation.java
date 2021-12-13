@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,13 +26,18 @@ public class Reservation {
     @Column(name = "reservation_id")
     private UUID id;
 
+    @NotNull(message = "Vin code is missing")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vin_code_id")
     private VinCode vinCode;
 
+    @NotNull(message = "Start date is missing")
+    @Past(message = "Start date should be before now")
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
+    @NotNull(message = "End date is missing")
+    @Future(message = "End date should be after now")
     @Column(name = "end_date")
     private LocalDateTime endDate;
 

@@ -31,7 +31,7 @@ public class CarController {
     @GetMapping("cars/{id}")
     public Car findById(@PathVariable UUID id) {
         return carService.findById(id)
-                .orElseThrow(() -> new CarNotFoundException(id));
+                .orElseThrow(CarNotFoundException::new);
     }
 
     @PostMapping("cars")
