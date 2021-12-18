@@ -35,7 +35,7 @@ public class CarMakeValidationTest {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toSet());
 
-        assertThat(violations).contains(
+        assertThat(violations).containsOnly(
                 "Body type is required",
                 "Year is missing",
                 "Combustion type is required",

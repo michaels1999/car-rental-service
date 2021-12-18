@@ -35,7 +35,7 @@ public class CarBrandValidationTest {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toSet());
 
-        assertThat(violations).contains("Car brand name should not be empty");
+        assertThat(violations).containsOnly("Car brand name should not be empty");
     }
 
     @Test

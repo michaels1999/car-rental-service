@@ -25,18 +25,26 @@ public final class CarMakeGenerator {
         return generateRandomCarMake(null, carBrand);
     }
 
+    public static CarMake generateRandomCarMake(final CarBrand carBrand, final BodyType bodyType) {
+        return generateRandomCarMake(null, carBrand, bodyType);
+    }
+
     public static CarMake generateRandomCarMake(final UUID id) {
         return generateRandomCarMake(id, generateRandomCarBrand(UUID.randomUUID()));
     }
 
     private static CarMake generateRandomCarMake(final UUID id, final CarBrand carBrand) {
+        return generateRandomCarMake(id, carBrand, BodyType.SEDAN);
+    }
+
+    private static CarMake generateRandomCarMake(final UUID id, CarBrand carBrand, BodyType bodyType) {
         return CarMake.builder()
                 .withId(id)
                 .withCarBrand(carBrand)
                 .withName("A4")
                 .withYear(2015)
                 .withEngineVolume(2.0)
-                .withBodyType(BodyType.SEDAN)
+                .withBodyType(bodyType)
                 .withCombustionType(CombustionType.GAS)
                 .build();
     }

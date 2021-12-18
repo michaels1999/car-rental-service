@@ -1,6 +1,7 @@
 package io.angelwing.car.rental.service.controller;
 
 import io.angelwing.car.rental.service.exception.CarMakeNotFoundException;
+import io.angelwing.car.rental.service.model.BodyType;
 import io.angelwing.car.rental.service.model.CarMake;
 import io.angelwing.car.rental.service.service.CarMakeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -24,7 +26,10 @@ public class CarMakeController {
     }
 
     @GetMapping("car-makes")
-    public Collection<CarMake> findAll() {
+    public Collection<CarMake> findAll(@RequestParam(value = "bodyType", required = false) final BodyType bodyType) {
+        if (bodyType != null) {
+            return carMakeService.findByBodyType(bodyType);
+        }
         return carMakeService.findAll();
     }
 

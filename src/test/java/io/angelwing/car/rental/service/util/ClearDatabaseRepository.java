@@ -15,6 +15,7 @@ public class ClearDatabaseRepository {
     @Transactional
     public void clear() {
         entityManager.createQuery("delete from Reservation").executeUpdate();
+        entityManager.createQuery("delete from User").executeUpdate();
         entityManager.createQuery("delete from VinCode").executeUpdate();
         entityManager.createQuery("delete from Car").executeUpdate();
         entityManager.createQuery("delete from CarMake").executeUpdate();

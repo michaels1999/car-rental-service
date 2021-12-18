@@ -35,7 +35,7 @@ public class VinCodeValidationTest {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toSet());
 
-        assertThat(violations).contains(
+        assertThat(violations).containsOnly(
                 "Car is missing",
                 "Available is missing"
         );
