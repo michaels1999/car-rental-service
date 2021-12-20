@@ -8,6 +8,7 @@ public enum ErrorCode {
     CRS003(HttpStatus.NOT_FOUND, "Car make not found"),
     CRS004(HttpStatus.NOT_FOUND, "Reservation not found"),
     CRS005(HttpStatus.NOT_FOUND, "Vin code not found"),
+    CRS006(HttpStatus.NOT_FOUND, "User not found"),
     CRS555(HttpStatus.BAD_REQUEST, "Invalid request body"),
     CRS666(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected exception occurred. Contact administrator.");
 

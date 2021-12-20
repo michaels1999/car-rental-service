@@ -36,10 +36,11 @@ public class ReservationValidationTest {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toSet());
 
-        assertThat(violations).contains(
-                "Start date is missing",
+        assertThat(violations).containsOnly(
                 "End date is missing",
-                "Vin code is missing"
+                "Vin code is missing",
+                "User is missing",
+                "Start date is missing"
         );
     }
 
@@ -55,6 +56,7 @@ public class ReservationValidationTest {
         assertThat(violations).contains("Start date should be before now");
     }
 
+    @Test
     void shouldNotValidateWhenReservationEndDateIsBeforeNow() {
         final Reservation reservation = Reservation.builder()
                 .withEndDate(LocalDateTime.now().minusDays(1))
@@ -65,6 +67,17 @@ public class ReservationValidationTest {
                 .collect(Collectors.toSet());
 
         assertThat(violations).contains("End date should be after now");
+    }
+
+    @Test
+    void shouldNotValidateWhenReservationUserIsNull() {
+        final Reservation reservation = Reservation.builder().build();
+
+        Set<String> violations = validator.validate(reservation).stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toSet());
+
+        assertThat(violations).contains("User is missing");
     }
 
 }

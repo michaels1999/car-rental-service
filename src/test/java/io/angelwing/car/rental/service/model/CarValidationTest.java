@@ -35,7 +35,7 @@ public class CarValidationTest {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toSet());
 
-        assertThat(violations).contains(
+        assertThat(violations).containsOnly(
                 "Car make is missing",
                 "Color is missing",
                 "Regular price is missing",

@@ -26,6 +26,11 @@ public class Reservation {
     @Column(name = "reservation_id")
     private UUID id;
 
+    @NotNull(message = "User is missing")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @NotNull(message = "Vin code is missing")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vin_code_id")
@@ -61,6 +66,10 @@ public class Reservation {
         return endDate;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -74,6 +83,8 @@ public class Reservation {
         private LocalDateTime startDate;
 
         private LocalDateTime endDate;
+
+        private User user;
 
         private Builder() {
             // NOOP
@@ -99,12 +110,18 @@ public class Reservation {
             return this;
         }
 
+        public Builder withUser(User user) {
+            this.user = user;
+            return this;
+        }
+
         public Reservation build() {
             Reservation reservation = new Reservation();
             reservation.id = id;
             reservation.vinCode = vinCode;
             reservation.startDate = startDate;
             reservation.endDate = endDate;
+            reservation.user = user;
             return reservation;
         }
     }

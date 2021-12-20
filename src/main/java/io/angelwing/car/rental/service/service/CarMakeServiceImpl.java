@@ -1,5 +1,6 @@
 package io.angelwing.car.rental.service.service;
 
+import io.angelwing.car.rental.service.model.BodyType;
 import io.angelwing.car.rental.service.model.CarMake;
 import io.angelwing.car.rental.service.repository.CarMakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class CarMakeServiceImpl implements CarMakeService {
     @Override
     public CarMake save(final CarMake carMake) {
         return carMakeRepository.save(carMake);
+    }
+
+    @Override
+    public Collection<CarMake> findByBodyType(final BodyType bodyType) {
+        return carMakeRepository.findByBodyType(bodyType);
     }
 
 }

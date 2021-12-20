@@ -1,11 +1,13 @@
 package io.angelwing.car.rental.service.service;
 
+import io.angelwing.car.rental.service.model.BodyType;
 import io.angelwing.car.rental.service.model.CarMake;
 import io.angelwing.car.rental.service.repository.CarMakeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -54,6 +56,20 @@ class CarMakeServiceTest {
         verify(carMakeRepository).findAll();
 
         assertThat(actualCarMake).isEqualTo(expectedCarMake);
+    }
+
+    @Test
+    void shouldFindCarMakesByBodyType() {
+        final CarMake expectedCarMake = generateRandomCarMake(); // bodyType = SEDAN
+        BodyType bodyType = expectedCarMake.getBodyType();
+
+
+        when(carMakeRepository.findByBodyType(bodyType)).thenReturn(Collections.singleton(expectedCarMake));
+
+        Collection<CarMake> actualCarMakes = carMakeService.findByBodyType(bodyType);
+        verify(carMakeRepository).findByBodyType(bodyType);
+
+        assertThat(actualCarMakes).containsOnly(expectedCarMake);
     }
 
 }

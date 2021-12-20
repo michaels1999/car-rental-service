@@ -4,6 +4,7 @@ import io.angelwing.car.rental.service.model.Car;
 import io.angelwing.car.rental.service.model.CarBrand;
 import io.angelwing.car.rental.service.model.CarMake;
 import io.angelwing.car.rental.service.model.Reservation;
+import io.angelwing.car.rental.service.model.User;
 import io.angelwing.car.rental.service.model.VinCode;
 import io.angelwing.car.rental.service.util.ClearDatabaseRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +21,7 @@ import static io.angelwing.car.rental.service.generator.CarBrandGenerator.genera
 import static io.angelwing.car.rental.service.generator.CarGenerator.generateRandomCar;
 import static io.angelwing.car.rental.service.generator.CarMakeGenerator.generateRandomCarMake;
 import static io.angelwing.car.rental.service.generator.ReservationGenerator.generateRandomReservation;
+import static io.angelwing.car.rental.service.generator.UserGenerator.generateRandomUser;
 import static io.angelwing.car.rental.service.generator.VinCodeGenerator.generateRandomVinCode;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,6 +45,9 @@ class ReservationRepositoryTest {
     private CarBrandRepository carBrandRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ClearDatabaseRepository clearDatabaseRepository;
 
     @AfterEach
@@ -52,7 +57,8 @@ class ReservationRepositoryTest {
 
     @Test
     void shouldFindReservationById() {
-        final Reservation expectedReservation = prepareReservation();
+        final User user = userRepository.save(generateRandomUser());
+        final Reservation expectedReservation = prepareReservation(user);
 
         final Optional<Reservation> actualReservation = reservationRepository.findById(expectedReservation.getId());
 
@@ -63,7 +69,8 @@ class ReservationRepositoryTest {
 
     @Test
     void shouldFindAllReservations() {
-        final Collection<Reservation> expectedReservations = prepareReservations(5);
+        final User user = userRepository.save(generateRandomUser());
+        final Collection<Reservation> expectedReservations = prepareReservations(5, user);
 
         final Collection<Reservation> actualReservations = reservationRepository.findAll();
 
@@ -72,22 +79,22 @@ class ReservationRepositoryTest {
                 .isEqualTo(expectedReservations);
     }
 
-    private Collection<Reservation> prepareReservations(final int numberOfReservations) {
+    private Collection<Reservation> prepareReservations(final int numberOfReservations, final User user) {
         final Collection<Reservation> expectedReservations = new ArrayList<>();
 
         IntStream.rangeClosed(1, numberOfReservations)
-                .forEach(i -> expectedReservations.add(prepareReservation()));
+                .forEach(i -> expectedReservations.add(prepareReservation(user)));
 
         return expectedReservations;
     }
 
-    private Reservation prepareReservation() {
+    private Reservation prepareReservation(final User user) {
         final CarBrand carBrand = carBrandRepository.save(generateRandomCarBrand());
         final CarMake carMake = carMakeRepository.save(generateRandomCarMake(carBrand));
         final Car car = carRepository.save(generateRandomCar(carMake));
         final VinCode vinCode = vinCodeRepository.save(generateRandomVinCode(car));
 
-        return reservationRepository.save(generateRandomReservation(vinCode));
+        return reservationRepository.save(generateRandomReservation(vinCode, user));
     }
 
 

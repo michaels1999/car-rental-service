@@ -1,5 +1,6 @@
 package io.angelwing.car.rental.service.repository;
 
+import io.angelwing.car.rental.service.model.BodyType;
 import io.angelwing.car.rental.service.model.CarMake;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,13 @@ public class CarMakeRepositoryImpl implements CarMakeRepository {
         entityManager.flush();
         entityManager.refresh(carMake);
         return carMake;
+    }
+
+    @Override
+    public Collection<CarMake> findByBodyType(final BodyType bodyType) {
+        return entityManager.createQuery("from CarMake where bodyType = ?1", CarMake.class)
+                .setParameter(1, bodyType)
+                .getResultList();
     }
 
 }

@@ -1,5 +1,6 @@
 package io.angelwing.car.rental.service.repository;
 
+import io.angelwing.car.rental.service.model.BodyType;
 import io.angelwing.car.rental.service.model.CarBrand;
 import io.angelwing.car.rental.service.model.CarMake;
 import io.angelwing.car.rental.service.util.ClearDatabaseRepository;
@@ -58,6 +59,20 @@ class CarMakeRepositoryTest {
 
     }
 
+    @Test
+    void shouldFindCarMakesByBodyType() {
+        final CarMake expectedCarMake = prepareCarMake(BodyType.SEDAN);
+        prepareCarMake(BodyType.COUPE);
+        prepareCarMake(BodyType.UNIVERSAL);
+
+        Collection<CarMake> actualCarMakes = carMakeRepository.findByBodyType(BodyType.SEDAN);
+
+        assertThat(actualCarMakes).hasSize(1);
+        assertThat(actualCarMakes).first()
+                .usingRecursiveComparison()
+                .isEqualTo(expectedCarMake);
+    }
+
     private Collection<CarMake> prepareCarMakes(final int numberOfCars) {
         final Collection<CarMake> expectedCars = new ArrayList<>();
 
@@ -72,5 +87,12 @@ class CarMakeRepositoryTest {
 
         return carMakeRepository.save(generateRandomCarMake(carBrand));
     }
+
+    private CarMake prepareCarMake(final BodyType bodyType) {
+        final CarBrand carBrand = carBrandRepository.save(generateRandomCarBrand());
+
+        return carMakeRepository.save(generateRandomCarMake(carBrand, bodyType));
+    }
+
 
 }
