@@ -28,9 +28,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Collection<Reservation> reservations;
-
 
     public User() {
         // NOOP

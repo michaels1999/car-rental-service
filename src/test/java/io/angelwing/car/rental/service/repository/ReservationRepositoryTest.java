@@ -11,7 +11,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -28,6 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class ReservationRepositoryTest {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -68,6 +75,7 @@ class ReservationRepositoryTest {
     }
 
     @Test
+    @Transactional
     void shouldFindAllReservations() {
         final User user = userRepository.save(generateRandomUser());
         final Collection<Reservation> expectedReservations = prepareReservations(5, user);
@@ -80,12 +88,14 @@ class ReservationRepositoryTest {
     }
 
     private Collection<Reservation> prepareReservations(final int numberOfReservations, final User user) {
-        final Collection<Reservation> expectedReservations = new ArrayList<>();
+        final Collection<Reservation> reservations = new ArrayList<>();
 
         IntStream.rangeClosed(1, numberOfReservations)
-                .forEach(i -> expectedReservations.add(prepareReservation(user)));
+                .forEach(i -> reservations.add(prepareReservation(user)));
 
-        return expectedReservations;
+        reservations.forEach(entityManager::refresh);
+
+        return reservations;
     }
 
     private Reservation prepareReservation(final User user) {
