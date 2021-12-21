@@ -26,4 +26,9 @@ public class UserRepositoryImpl implements UserRepository {
         entityManager.flush();
         return user;
     }
+
+    @Override
+    public boolean exists(final String email) {
+        return this.findByEmail(email).isPresent();
+    }
 }
