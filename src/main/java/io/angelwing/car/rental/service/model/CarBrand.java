@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
@@ -23,6 +24,10 @@ public class CarBrand {
     @NotBlank(message = "Car brand name should not be empty")
     private String name;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
+
     public CarBrand() {
         // NOOP
     }
@@ -35,6 +40,10 @@ public class CarBrand {
         return name;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -44,6 +53,8 @@ public class CarBrand {
         private UUID id;
 
         private String name;
+
+        private byte[] image;
 
         private Builder() {
             // NOOP
@@ -59,10 +70,16 @@ public class CarBrand {
             return this;
         }
 
+        public Builder withImage(byte[] image){
+            this.image = image;
+            return this;
+        }
+
         public CarBrand build() {
             CarBrand carBrand = new CarBrand();
             carBrand.id = id;
             carBrand.name = name;
+            carBrand.image = image;
             return carBrand;
         }
     }
